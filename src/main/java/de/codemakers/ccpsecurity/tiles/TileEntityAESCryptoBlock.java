@@ -23,12 +23,14 @@ import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.turtle.ITurtleAccess;
 import de.codemakers.ccpsecurity.utils.AES;
 import de.codemakers.ccpsecurity.utils.ICCPSPeripheral;
+import de.codemakers.ccpsecurity.utils.Utils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
+import java.util.Map;
 
 public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeripheral {
     
@@ -89,7 +91,7 @@ public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeriphe
                         if (key == null) {
                             return new Object[] {null};
                         }
-                        return new Object[] {new String(key.getEncoded()), key.getAlgorithm(), key.getFormat()};
+                        return new Object[] {Utils.toByteLuaArray(key.getEncoded()), key.getAlgorithm(), key.getFormat()};
                     }
                 } else if (arguments.length == 0) {
                     throw new LuaException("'generateAESKey' needs at least 1 argument");
@@ -110,23 +112,23 @@ public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeriphe
                         if (key == null) {
                             return new Object[] {null};
                         }
-                        return new Object[] {new String(key.getEncoded()), key.getAlgorithm(), key.getFormat()};
+                        return new Object[] {Utils.toByteLuaArray(key.getEncoded()), key.getAlgorithm(), key.getFormat()};
                     }
                 } else {
                     throw new LuaException("'randomAESKey' only accepts up to 1 argument");
                 }
             case 2:
                 if (arguments.length == 2) {
-                    if (!(arguments[0] instanceof String)) {
+                    if (!(arguments[0] instanceof Map)) {
                         throw new LuaException("'encryptAESGCM' takes a string as the first argument");
                     } else if (!(arguments[1] instanceof String)) {
                         throw new LuaException("'encryptAESGCM' takes a string as the second argument");
                     } else {
                         try {
-                            final byte[] encrypted = AES.encrypt(AES.unserialiseKey("" + arguments[0]), ("" + arguments[1]).getBytes());
-                            return new Object[] {new String(encrypted), true};
+                            final byte[] encrypted = AES.encrypt(AES.unserialiseKey((Map<Double, Object>) arguments[0]), ("" + arguments[1]).getBytes());
+                            return new Object[] {Utils.toByteLuaArray(encrypted), true};
                         } catch (Exception ex) {
-                            return new Object[] {null, false, ex.getMessage()};
+                            return new Object[] {null, false, ex.toString()};
                         }
                     }
                 } else {
@@ -134,16 +136,16 @@ public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeriphe
                 }
             case 3:
                 if (arguments.length == 2) {
-                    if (!(arguments[0] instanceof String)) {
+                    if (!(arguments[0] instanceof Map)) {
                         throw new LuaException("'decryptAESGCM' takes a string as the first argument");
                     } else if (!(arguments[1] instanceof String)) {
                         throw new LuaException("'decryptAESGCM' takes a string as the second argument");
                     } else {
                         try {
-                            final byte[] decrypted = AES.decrypt(AES.unserialiseKey("" + arguments[0]), ("" + arguments[1]).getBytes());
+                            final byte[] decrypted = AES.decrypt(AES.unserialiseKey((Map<Double, Object>) arguments[0]), ("" + arguments[1]).getBytes());
                             return new Object[] {new String(decrypted), true};
                         } catch (Exception ex) {
-                            return new Object[] {null, false, ex.getMessage()};
+                            return new Object[] {null, false, ex.toString()};
                         }
                     }
                 } else {

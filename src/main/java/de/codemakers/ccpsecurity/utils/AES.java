@@ -26,6 +26,7 @@ import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Map;
 
 public class AES {
     
@@ -97,13 +98,12 @@ public class AES {
         return keyGenerator_256.generateKey();
     }
     
-    
-    public static SecretKey unserialiseKey(String key) {
+    public static SecretKey unserialiseKey(Map<Double, Object> key) {
         return unserialiseKey(key, "AES");
     }
     
-    public static SecretKey unserialiseKey(String key, String algorithm) {
-        return new SecretKeySpec(key.getBytes(), algorithm);
+    public static SecretKey unserialiseKey(Map<Double, Object> key, String algorithm) {
+        return new SecretKeySpec(Utils.fromByteLuaArray(key), algorithm);
     }
     
     public static byte[] encrypt(SecretKey key, byte[] data) throws Exception {
