@@ -38,20 +38,23 @@ public class AES {
         }
     }
     
-    public static SecretKeySpec generateKey(String key) {
+    public static SecretKeySpec generateKey(String key, int size) {
         try {
-            return generateKey(key.getBytes("UTF-8"));
+            return generateKey(key.getBytes("UTF-8"), size);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
     }
     
-    public static SecretKeySpec generateKey(byte[] key) {
+    public static SecretKeySpec generateKey(byte[] key, int size) {
         if (key == null || key.length == 0) {
             return null;
         }
-        return new SecretKeySpec(Arrays.copyOf(SHA_256.digest(key), 16), "AES");
+        if (size != 128 && size != 256) {
+            size = 128;
+        }
+        return new SecretKeySpec(Arrays.copyOf(SHA_256.digest(key), size / 8), "AES");
     }
     
 }

@@ -68,7 +68,19 @@ public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeriphe
     public Object[] callMethod(@Nonnull IComputerAccess computer, @Nonnull ILuaContext context, int method, @Nonnull Object[] arguments) throws LuaException, InterruptedException {
         switch (method) {
             case 0:
-                return new Object[] {AES.generateKey("" + arguments[0])};
+                if (arguments.length >= 1 && arguments.length <= 2) {
+                    if (!(arguments[0] instanceof String)) {
+                        throw new LuaException("'generateKey' takes a string as the first argument");
+                    } else if (arguments.length >= 2 && !(arguments[1] instanceof Double)) {
+                        throw new LuaException("'generateKey' takes a number as the second argument");
+                    } else {
+                        return new Object[] {AES.generateKey("" + arguments[0], arguments.length <= 1 ? -1 : (int) ((double) arguments[1])).getEncoded()};
+                    }
+                } else if (arguments.length == 0) {
+                    throw new LuaException("'generateKey' needs at least 1 argument");
+                } else {
+                    throw new LuaException("'generateKey' only accepts 1 or 2 arguments");
+                }
             case 1:
                 return new Object[] {"Test: " + Math.random()};
         }
