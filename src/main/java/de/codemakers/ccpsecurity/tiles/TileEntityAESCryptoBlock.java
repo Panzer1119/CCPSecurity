@@ -21,6 +21,7 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.turtle.ITurtleAccess;
+import de.codemakers.ccpsecurity.utils.AES;
 import de.codemakers.ccpsecurity.utils.ICCPSPeripheral;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -67,7 +68,7 @@ public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeriphe
     public Object[] callMethod(@Nonnull IComputerAccess computer, @Nonnull ILuaContext context, int method, @Nonnull Object[] arguments) throws LuaException, InterruptedException {
         switch (method) {
             case 0:
-                return new Object[0];
+                return new Object[] {AES.generateKey("" + arguments[0])};
             case 1:
                 return new Object[] {"Test: " + Math.random()};
         }
