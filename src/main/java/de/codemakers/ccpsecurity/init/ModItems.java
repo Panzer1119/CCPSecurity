@@ -17,13 +17,34 @@
 package de.codemakers.ccpsecurity.init;
 
 import de.codemakers.ccpsecurity.reference.Reference;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import static net.minecraftforge.fml.common.registry.ForgeRegistries.ITEMS;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
     
-    public static void register() {
+    public static final Item AES_CRYPTO_BLOCK = getItemBlock(ModBlocks.AES_CRYPTO_BLOCK);
     
+    public static void register() {
+        ITEMS.register(AES_CRYPTO_BLOCK);
+    }
+    
+    public static void registerModels() {
+        registerModel(AES_CRYPTO_BLOCK);
+    }
+    
+    private static void registerModel(Item item) {
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+    }
+    
+    private static Item getItemBlock(Block block) {
+        return new ItemBlock(block).setRegistryName(block.getRegistryName()).setUnlocalizedName(block.getUnlocalizedName());
     }
     
 }

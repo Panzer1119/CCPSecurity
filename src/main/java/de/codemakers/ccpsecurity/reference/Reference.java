@@ -41,6 +41,10 @@ public class Reference {
     public static final String NAME = CCPSecurity.NAME;
     public static final String VERSION = CCPSecurity.VERSION;
     
+    public static final String SERVER_PROXY_CLASS = "de.codemakers.ccpsecurity.proxy.CommonProxy";
+    public static final String CLIENT_PROXY_CLASS = "de.codemakers.ccpsecurity.proxy.ClientProxy";
+    public static final String GUI_FACTORY_CLASS = "de.codemakers.ccpsecurity.client.gui.GuiFactory";
+    
     public static Logger LOGGER = CCPSecurity.LOGGER;
     
 }

@@ -20,16 +20,18 @@ import de.codemakers.ccpsecurity.init.ModBlocks;
 import de.codemakers.ccpsecurity.init.ModItems;
 import de.codemakers.ccpsecurity.init.ModPeripherals;
 import de.codemakers.ccpsecurity.init.Recipes;
+import de.codemakers.ccpsecurity.proxy.CommonProxy;
 import de.codemakers.ccpsecurity.reference.Reference;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = CCPSecurity.MOD_ID, name = CCPSecurity.NAME, version = CCPSecurity.VERSION, dependencies = "required-after:theframework;required-after:computercraft")
+@Mod(modid = CCPSecurity.MOD_ID, name = CCPSecurity.NAME, version = CCPSecurity.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = "required-after:theframework;required-after:computercraft")
 public class CCPSecurity {
     
     public static final String MOD_ID = "ccpsecurity";
@@ -40,6 +42,9 @@ public class CCPSecurity {
     
     @Mod.Instance(Reference.MOD_ID)
     public static CCPSecurity instance;
+    
+    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
+    public static CommonProxy proxy;
     
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
