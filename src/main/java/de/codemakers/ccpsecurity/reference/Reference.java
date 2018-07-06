@@ -33,11 +33,14 @@
 package de.codemakers.ccpsecurity.reference;
 
 import de.codemakers.ccpsecurity.CCPSecurity;
+import org.apache.logging.log4j.Logger;
 
 public class Reference {
     
     public static final String MOD_ID = CCPSecurity.MOD_ID;
     public static final String NAME = CCPSecurity.NAME;
     public static final String VERSION = CCPSecurity.VERSION;
+    
+    public static Logger LOGGER = CCPSecurity.LOGGER;
     
 }

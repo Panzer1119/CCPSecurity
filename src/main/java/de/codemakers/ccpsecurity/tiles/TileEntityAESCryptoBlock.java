@@ -21,13 +21,14 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.turtle.ITurtleAccess;
+import de.codemakers.ccpsecurity.utils.ICCPSPeripheral;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileEntityAESCryptoBlock extends TileEntity implements IPeripheral {
+public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeripheral {
     
     private ITurtleAccess turtle;
     

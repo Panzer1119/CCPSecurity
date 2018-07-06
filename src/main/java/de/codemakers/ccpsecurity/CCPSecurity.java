@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = CCPSecurity.MOD_ID, name = CCPSecurity.NAME, version = CCPSecurity.VERSION)
+@Mod(modid = CCPSecurity.MOD_ID, name = CCPSecurity.NAME, version = CCPSecurity.VERSION, dependencies = "required-after:theframework;required-after:computercraft")
 public class CCPSecurity {
     
     public static final String MOD_ID = "ccpsecurity";
@@ -38,9 +38,13 @@ public class CCPSecurity {
     
     public static Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
     
+    @Mod.Instance(Reference.MOD_ID)
+    public static CCPSecurity instance;
+    
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         LOGGER = event.getModLog();
+        Reference.LOGGER = LOGGER;
         LOGGER.info("Hey i'm " + NAME);
         ModBlocks.register();
         ModItems.register();

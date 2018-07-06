@@ -16,8 +16,11 @@
 
 package de.codemakers.ccpsecurity.init;
 
+import dan200.computercraft.api.ComputerCraftAPI;
 import dan200.computercraft.api.pocket.IPocketUpgrade;
 import dan200.computercraft.api.turtle.ITurtleUpgrade;
+import de.codemakers.ccpsecurity.reference.Reference;
+import de.codemakers.ccpsecurity.utils.ICCPSPeripheral;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +35,12 @@ public class ModPeripherals {
     }
     
     public static void registerWithComputerCraft() {
-    
+        Reference.LOGGER.info("Registering peripherals...");
+        ComputerCraftAPI.registerPeripheralProvider(new ICCPSPeripheral.Provider());
+        Reference.LOGGER.info("Registering turtle upgrades...");
+        TURTLE_UPGRADES.forEach(ComputerCraftAPI::registerTurtleUpgrade);
+        Reference.LOGGER.info("Registering pocket computer upgrades...");
+        POCKET_UPGRADES.forEach(ComputerCraftAPI::registerPocketUpgrade);
     }
     
 }

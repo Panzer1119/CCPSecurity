@@ -23,7 +23,7 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.4.2715"
     runDir = "run"
-    
+
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
@@ -33,6 +33,15 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
+// deobf jars
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+    manifest {
+        attributes 'FMLAT': 'ppp_at.cfg'
+    }
+}
+
 repositories {
     /*
     ivy {
@@ -40,10 +49,12 @@ repositories {
         artifactPattern "http://addons-origin.cursecdn.com/files/2311/39/[module][revision](.[ext])"
     }
     */
+    /*
+    jcenter()
     maven {
-        url  'https://dl.bintray.com/rolandoislas/The-Framework'
+        url "https://dl.bintray.com/rolandoislas/The-Framework"
     }
-    //jcenter()
+    */
 }
 
 dependencies {
@@ -51,7 +62,7 @@ dependencies {
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
-      
+
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
@@ -69,7 +80,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     //compile "ComputerCraft:ComputerCraft:1.80pr1"
-    compile 'com.rolandoislas.theframework:TheFramework:1.12.2-1.0.1-build-T23'
+    //compile 'com.rolandoislas.theframework:TheFramework:1.12.2-1.0.1-build-T23'
 
 }
 
@@ -81,11 +92,11 @@ processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
+
     // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
