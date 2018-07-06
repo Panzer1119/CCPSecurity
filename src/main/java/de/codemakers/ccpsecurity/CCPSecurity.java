@@ -16,10 +16,7 @@
 
 package de.codemakers.ccpsecurity;
 
-import de.codemakers.ccpsecurity.init.ModBlocks;
-import de.codemakers.ccpsecurity.init.ModItems;
-import de.codemakers.ccpsecurity.init.ModPeripherals;
-import de.codemakers.ccpsecurity.init.Recipes;
+import de.codemakers.ccpsecurity.init.*;
 import de.codemakers.ccpsecurity.proxy.CommonProxy;
 import de.codemakers.ccpsecurity.reference.Reference;
 import net.minecraft.init.Blocks;
@@ -59,6 +56,7 @@ public class CCPSecurity {
     
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        ModTileEntities.loadTileEntities();
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         ModPeripherals.registerWithComputerCraft();
         LOGGER.info("All peripherals and TURTLE upgrades registered!");

@@ -1,2 +1,5 @@
 #Blocks
-tile.ccpsecurity:aes_crypto_block=AES Krypto Block
+tile.ccpsecurity:aes_crypto_block.name=AES Krypto Block
+
+#Items
+item.ccpsecurity:aes_crypto_block.name=AES Krypto Block
