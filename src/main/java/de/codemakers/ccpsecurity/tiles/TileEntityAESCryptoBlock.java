@@ -120,7 +120,7 @@ public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeriphe
             case 2:
                 if (arguments.length == 2) {
                     if (!(arguments[0] instanceof Map)) {
-                        throw new LuaException("'encryptAESGCM' takes a string as the first argument");
+                        throw new LuaException("'encryptAESGCM' takes an array as the first argument");
                     } else if (!(arguments[1] instanceof String)) {
                         throw new LuaException("'encryptAESGCM' takes a string as the second argument");
                     } else {
@@ -137,12 +137,12 @@ public class TileEntityAESCryptoBlock extends TileEntity implements ICCPSPeriphe
             case 3:
                 if (arguments.length == 2) {
                     if (!(arguments[0] instanceof Map)) {
-                        throw new LuaException("'decryptAESGCM' takes a string as the first argument");
-                    } else if (!(arguments[1] instanceof String)) {
-                        throw new LuaException("'decryptAESGCM' takes a string as the second argument");
+                        throw new LuaException("'decryptAESGCM' takes an array as the first argument");
+                    } else if (!(arguments[1] instanceof Map)) {
+                        throw new LuaException("'decryptAESGCM' takes an array as the second argument");
                     } else {
                         try {
-                            final byte[] decrypted = AES.decrypt(AES.unserialiseKey((Map<Double, Object>) arguments[0]), ("" + arguments[1]).getBytes());
+                            final byte[] decrypted = AES.decrypt(AES.unserialiseKey((Map<Double, Object>) arguments[0]), Utils.fromByteLuaArray((Map<Double, Object>) arguments[1]));
                             return new Object[] {new String(decrypted), true};
                         } catch (Exception ex) {
                             return new Object[] {null, false, ex.toString()};
