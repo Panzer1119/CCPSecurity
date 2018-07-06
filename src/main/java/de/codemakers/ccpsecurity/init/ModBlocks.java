@@ -14,7 +14,21 @@
  *    limitations under the License.
  */
 
-package de.codemakers.ccpsecurity.tiles;
+package de.codemakers.ccpsecurity.init;
 
-public class AESCryptoBlock {
+import de.codemakers.ccpsecurity.CCPSecurity;
+import de.codemakers.ccpsecurity.blocks.AESCryptoBlock;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import static net.minecraftforge.fml.common.registry.ForgeRegistries.BLOCKS;
+
+@GameRegistry.ObjectHolder(CCPSecurity.MOD_ID)
+public class ModBlocks {
+    
+    public static final AESCryptoBlock AES_CRYPTO_BLOCK = new AESCryptoBlock();
+    
+    public static void register() {
+        BLOCKS.register(AES_CRYPTO_BLOCK);
+    }
+    
 }

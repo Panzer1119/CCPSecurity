@@ -16,37 +16,49 @@
 
 package de.codemakers.ccpsecurity;
 
+import de.codemakers.ccpsecurity.init.ModBlocks;
+import de.codemakers.ccpsecurity.init.ModItems;
+import de.codemakers.ccpsecurity.init.ModPeripherals;
+import de.codemakers.ccpsecurity.init.Recipes;
+import de.codemakers.ccpsecurity.reference.Reference;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid =  CCPSecurity.MODID, name = CCPSecurity.NAME, version =  CCPSecurity.VERSION)
+@Mod(modid = CCPSecurity.MOD_ID, name = CCPSecurity.NAME, version = CCPSecurity.VERSION)
 public class CCPSecurity {
     
-    public static final String MODID = "ccpsecurity";
+    public static final String MOD_ID = "ccpsecurity";
     public static final String NAME = "ComputerCraft Plus Security";
     public static final String VERSION = "0.1";
     
-    private static Logger logger;
+    public static Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
     
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        logger = event.getModLog();
-        logger.info("Hey i'm " + NAME);
+        LOGGER = event.getModLog();
+        LOGGER.info("Hey i'm " + NAME);
+        ModBlocks.register();
+        ModItems.register();
+        ModPeripherals.registerInternally();
     }
     
     
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        ModPeripherals.registerWithComputerCraft();
+        LOGGER.info("All peripherals and TURTLE upgrades registered!");
     }
     
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        logger.info("See you later " + NAME);
+        LOGGER.info("See you later " + NAME);
+        Recipes.init();
     }
     
     
