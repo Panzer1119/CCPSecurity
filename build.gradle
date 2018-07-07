@@ -1,5 +1,7 @@
 buildscript {
     repositories {
+        mavenCentral()
+        mavenLocal()
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
     }
@@ -52,9 +54,12 @@ repositories {
     /*
     jcenter()
     maven {
-        url "https://dl.bintray.com/rolandoislas/The-Framework"
+        url "https://dl.bintray.com/rolandoislas/The-Framework/"
     }
     */
+    maven { url = "http://maven.cil.li" }
+    maven { url = "http://maven.ic2.player.to" }
+    maven { url = "http://cc.crzd.me/maven" }
 }
 
 dependencies {
@@ -81,6 +86,7 @@ dependencies {
 
     //compile "ComputerCraft:ComputerCraft:1.80pr1"
     //compile 'com.rolandoislas.theframework:TheFramework:1.12.2-1.0.1-build-T23'
+    compile "dan200.computercraft:ComputerCraft:1.80pr1-build5"
 
 }
 
